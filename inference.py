@@ -226,7 +226,16 @@ class ExactInference(InferenceModule):
         positions after a time update from a particular position.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        newBelief = util.Counter()
+        for oldPos in self.legalPositions:
+            #from the above description
+            newPosDist = self.getPositionDistribution(self.setGhostPosition(gameState, oldPos))
+
+            for newPosition, probability in newPosDist.items():
+                newBelief[newPosition] += probability*self.beliefs[oldPos]
+
+        self.beliefs = newBelief
+        
 
     def getBeliefDistribution(self):
         return self.beliefs
@@ -310,7 +319,7 @@ class ParticleFilter(InferenceModule):
         a belief distribution.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        
 
     def getBeliefDistribution(self):
         """

@@ -349,6 +349,13 @@ class ParticleFilter(InferenceModule):
         a belief distribution.
         """
         "*** YOUR CODE HERE ***"
+        newSample = []
+        for particle in self.particles:
+            newPosDist = self.getPositionDistribution(self.setGhostPosition(gameState, particle))
+            #using the helper method to generate a sample from belief distribution
+            newSample.append(util.sample(newPosDist))
+        self.particles = newSample
+
         
 
     def getBeliefDistribution(self):

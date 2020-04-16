@@ -519,7 +519,7 @@ class JointParticleFilter:
                 else:
                     distance = util.manhattanDistance(particle[each], pacmanPosition)
                     probability *= emissionModels[each][distance]
-                    
+
             distribution[particle] += probability
         
         if distribution.totalCount() != 0 :
@@ -588,13 +588,19 @@ class JointParticleFilter:
 
             "*** YOUR CODE HERE ***"
 
+            for each in range( self.numGhosts ):
+                distribution = getPositionDistributionForGhost(setGhostPositions(gameState, newParticle), each , self.ghostAgents[each])
+                newParticle[each] = util.sample(distribution)
+
             "*** END YOUR CODE HERE ***"
             newParticles.append(tuple(newParticle))
         self.particles = newParticles
 
     def getBeliefDistribution(self):
         "*** YOUR CODE HERE ***"
+
         distribution = util.Counter()
+        
         for particle in self.particles:
             distribution[particle] += 1
 
